@@ -11,7 +11,7 @@ void logic(int, int);
 void two_complement(bool *, int);
 void convert(bool *, int );
 void mark_as_negative(int *value, int size, int *mark);
-void help_message(char *message);
+void usage();
 void evaluate(int value, bool *array, int size);
 void short_premessage(char *message);
 void process_args(int argc, char  **argv);
@@ -30,7 +30,7 @@ char *red = "\033[38;5;70m";
 int main(int argc, char *argv[]){
 	/* Converting decinals into bytes */
 	if( argc == 1) 
-		help_message(argv[0]);
+		usage();
 
 	if(argc == 2)
 		logic(strtol(argv[1], NULL, 10), sizeof(int) * 8);
@@ -57,9 +57,8 @@ void process_args(int argc, char  **argv){
 	}
 }
 
-void help_message(char *message){
-	printf("Converting int and shorts to how thy look in memory\n");
-	printf("%s -s <number> -i <number> ....\n", message);
+void usage(){
+	printf("Usage:\n\t%s -s <number> -i <number>\n", __FILE__);
 	exit(1);
 }
 
@@ -73,9 +72,8 @@ void int_func(char *message){
 	logic(VALUE(optarg), INTSIZE);
 }
 
-void int_premessage(char *message){
+inline void int_premessage(char *message){
 	printf("%s[int] The arg is %s%s\n", blue, optarg, end);
-	// int value = (int)(strtol(message, NULL, 10));
 }
 
 
@@ -121,8 +119,7 @@ void mark_as_negative(int *value, int size, int *mark){
 
 
 void evaluate(int value, bool *array, int size){
-	for (int i = (size - 1); i > 0; i--)
-	{
+	for (int i = (size - 1); i > 0; i--) {
 		array[i] = value % 2;
 		if(i == 1) break;
 		value = value / 2;
@@ -144,12 +141,11 @@ void two_complement(bool *array, int size){
 	if(array[size - 1] == 1)
 		convert(array , (size - 2));
 	else{
-		for(int i = (size - 2); i > 0; i--){
+		for(int i = (size - 2); i > 0; i--)
 			if( array[i] == 1){
 				convert(array , (i - 1));
 				break;
 			}
-		}
 	}
 }
 
