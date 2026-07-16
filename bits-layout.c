@@ -18,7 +18,7 @@ void process_args(int argc, char  **argv);
 void print(bool *, int *, int, int);
 void short_func(char *message);
 void int_func(char *);
-void int_premessage();
+void int_premessage(char *);
 
 char *blue = "\033[38;5;115m"; 
 char *end = "\033[0m";
@@ -73,7 +73,7 @@ void int_func(char *message){
 	logic(VALUE(optarg), INTSIZE);
 }
 
-void int_premessage(){
+void int_premessage(char *message){
 	printf("%s[int] The arg is %s%s\n", blue, optarg, end);
 	// int value = (int)(strtol(message, NULL, 10));
 }
