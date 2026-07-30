@@ -6,12 +6,12 @@
 
 #define INTSIZE (sizeof(int) * 8)
 #define SHORTSIZE (sizeof(short) * 8)
-#define SEP() printf("%s# %s", RED, END)
+#define SEP() printf("%s# %s", YELLOW, END)
 #define USER_VALUE(x) ((int)strtol((x), NULL, 10))
-#define BLUE "\e[38;5;115m"
+#define GREEN "\e[32m"
 #define END "\e[0m"
-#define YELLOW "\e[38;5;99m"
-#define RED "\e[38;5;70m"
+#define YELLOW "\e[33m"
+#define RED "\e[31m"
 
 void compute_bits (int, int);
 void two_complement (bool *, int);
@@ -57,7 +57,6 @@ void usage ()
   printf ("Usage:\n\t%s -s <number> -i <number>\n", __FILE__);
   exit (1);
 }
-
 
 void process_argument(int intent_size)
 {
@@ -112,8 +111,6 @@ void check_if_negative(int *value, int size, bool *is_negative){
 	}
 }
 
-
-
 void fill_array(int value, bool *array, int size){
 	/* This is very simple
 	 * It just reverses the ides that happens when converting binary
@@ -146,7 +143,6 @@ void __impl_complement(bool *array, int size){
 	array[0] = 1;
 }
 
-
 void two_complement(bool *array, int size){
 	/* 0 0 0 0 1 1 0 1
 	 * 		 ^
@@ -177,7 +173,7 @@ print_result(bool *array, int *value, int size){
 	for (int i = 0; i < size; i++)
 	{
 		sofar++;
-		printf("%s%i%s ",YELLOW, array[i], END);
+		printf((i == size - 1)?"%s%i%s" : "%s%i%s ",GREEN, array[i], END);
 		/* This 2 blocks handle the separators the # and the
 		 * space
 		 * TODO intend to change it later
@@ -188,5 +184,5 @@ print_result(bool *array, int *value, int size){
 			printf(" ");
 	}
 
-	printf("]\t %d\n", *value);
+	printf("] %5d\n", (array[0] == 1)? -(*value) : *value);
 }
